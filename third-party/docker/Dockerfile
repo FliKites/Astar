@@ -17,16 +17,15 @@ LABEL io.parity.image.authors="devops@stake.co.jp" \
 ENV RUST_BACKTRACE 1
 
 # add user
-RUN useradd -m -u 1000 -U -s /bin/sh -d /astar astar && \
-   	mkdir /data && \
-    	chown -R astar:astar /data && \
+RUN    	mkdir /data && \
+    	chown -R root:root /data && \
     	rm -rf /usr/bin /usr/sbin
 
 ARG PROFILE=release
 # add binary to docker image
 COPY ./astar-collator /usr/local/bin
 
-USER astar 
+USER root
 
 # check if executable works in this container
 RUN ["astar-collator", "--version"]
